@@ -24,7 +24,7 @@ class ServiceRequest extends FormRequest
         return [
             'service_type'=>'required',// is it exist in subs or not will see
             'title'=>'required',
-            'due_date'=>'required|date|date_format:Y-m-d',
+            'due_date'=>'required|date',
             'description'=>'required',
             'attachment'=>'file',
             'budget'=>'required',

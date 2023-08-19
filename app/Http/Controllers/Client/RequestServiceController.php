@@ -35,7 +35,7 @@ class RequestServiceController extends Controller
      */
     public function show(string $id)
     {
-        $service_request = Service::where('user_id',auth('api')->id())->finorfail($id)->get();
+        $service_request = Service::where('user_id',auth('api')->id())->findorfail($id);
         return response()->json(['success'=>'true','data'=>$service_request]);
     }
 
@@ -45,7 +45,7 @@ class RequestServiceController extends Controller
     public function update(ServiceRequest $request, string $id)
     {
         $request->validated();
-        $service = Service::findorfail($id);
+        $service = Service::where('user_id',auth('api')->id())->findorfail($id);
         if($service->status == 'refused'){
             return response()->json(['success'=>'fail','message'=>'sorry your service has been refused']);
         }else{

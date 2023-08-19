@@ -22,14 +22,14 @@ class ServiceController extends Controller
      */
     public function show(string $id)
     {
-        $service = Service::where('provider_id',auth()->guard('developer')->id())->finorfail($id)->get();
+        $service = Service::where('provider_id',auth()->guard('developer')->id())->findorfail($id)->get();
         return response()->json(['success'=>'true','data'=>$service]);
     }
 
     public function acceptService($id){
         $check = Service::findorfail($id);
         if($check->provider_id == auth()->guard('developer')->id()){
-           $check->update(['status'=>'accepted']);
+           $check->update(['status_of_request'=>'accepted']);
            return response()->json(['status'=>'success','message'=>'service accepted']);
         }else{
            return response()->json(['status'=>'failed','message'=>'this request is not avilable']);
@@ -39,7 +39,7 @@ class ServiceController extends Controller
     public function refuseService($id){
         $check = Service::findorfail($id);
         if($check->provider_id == auth()->guard('developer')->id()){
-           $check->update(['status'=>'refused']);
+           $check->update(['status_of_request'=>'refused']);
            return response()->json(['status'=>'success','message'=>'service refused']);
         }else{
            return response()->json(['status'=>'failed','message'=>'this request is not avilable']);
@@ -50,7 +50,7 @@ class ServiceController extends Controller
         $check = Service::findorfail($id);
         if($check->provider_id == null){
            $check->update(['provider_id'=>auth()->guard('developer')->id(),
-                           'status'=>'accepted']);
+                           'status_of_request'=>'accepted']);
            return response()->json(['status'=>'success','data'=>$check]);
         }else{
            return response()->json(['status'=>'failed','message'=>'this request is not avilable']);

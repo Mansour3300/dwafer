@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->foreignid('provider_id')->constraind('providers')->cascadeondelete()->nullable();
-            $table->foreignid('users_id')->constraind('users')->cascadeondelete();
+            $table->foreignid('user_id')->constraind('users')->cascadeondelete();
             $table->string('service_type');
-            $table->date('due_date')->date_format('Y-m-d');
+            $table->date('due_date');
             $table->string('description');
-            $table->string('attacment');//
+            $table->string('attachment');//
             $table->string('budget');
             $table->string('title');
             $table->enum('status_of_request',['binding','accepted','refused'])->default('binding');
