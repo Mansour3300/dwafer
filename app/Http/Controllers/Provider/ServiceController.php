@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Provider;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Client\ServiceResource;
 
 class ServiceController extends Controller
 {
@@ -14,14 +15,16 @@ class ServiceController extends Controller
     public function index()
     {
         $service = Service::all();
-        return response()->json(['success'=>'true','data'=>$service]);
+        $resource = ServiceResource::collection($service);
+        return response()->json(['success'=>'true','data'=>$resource]);
     }
 
 
     public function myWork()
     {
         $service = Service::where('provider_id',auth()->guard('developer')->id())->get();
-        return response()->json(['success'=>'true','data'=>$service]);
+        $resource = ServiceResource::collection($service);
+        return response()->json(['success'=>'true','data'=>$resource]);
     }
 
     /**
@@ -30,7 +33,8 @@ class ServiceController extends Controller
     public function show(string $id)
     {
         $service = Service::where('provider_id',auth()->guard('developer')->id())->findorfail($id)->get();
-        return response()->json(['success'=>'true','data'=>$service]);
+        $resource = ServiceResource::make($service);
+        return response()->json(['success'=>'true','data'=>$resource]);
     }
 
     public function acceptService($id){

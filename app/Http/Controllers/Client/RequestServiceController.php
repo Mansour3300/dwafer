@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\ServiceRequest;
-use App\Models\Service;
+use App\Http\Resources\Client\ServiceResource;
 
 class RequestServiceController extends Controller
 {
@@ -15,7 +16,8 @@ class RequestServiceController extends Controller
     public function index()
     {
         $service = Service::where('user_id',auth('api')->id())->get();
-        return response()->json(['success'=>'true','data'=>$service]);
+        $resource = ServiceResource::collection($service);
+        return response()->json(['status'=>'success','data'=>$resource]);
     }
 
     /**
@@ -27,7 +29,7 @@ class RequestServiceController extends Controller
         $service['attachment']=$request->file('attachment')->store('file','public');
         $service['user_id']=auth('api')->id();
         Service::create($service);
-        return response()->json(['success'=>'true','message'=>'new service request added']);
+        return response()->json(['status'=>'success','message'=>'new service request added']);
     }
 
     /**
@@ -36,7 +38,8 @@ class RequestServiceController extends Controller
     public function show(string $id)
     {
         $service_request = Service::where('user_id',auth('api')->id())->findorfail($id);
-        return response()->json(['success'=>'true','data'=>$service_request]);
+        $resource = ServiceResource::make($service_request);
+        return response()->json(['status'=>'success','data'=>$resource]);
     }
 
     /**
@@ -47,7 +50,7 @@ class RequestServiceController extends Controller
         $request->validated();
         $service = Service::where('user_id',auth('api')->id())->findorfail($id);
         if($service->status == 'refused'){
-            return response()->json(['success'=>'fail','message'=>'sorry your service has been refused']);
+            return response()->json(['status'=>'fail','message'=>'sorry your service has been refused']);
         }else{
         $service->update([
             'attachment'=>$request->file('attachment')->store('file','public'),
@@ -58,6 +61,7 @@ class RequestServiceController extends Controller
             'budget'=>$request->budget,
             'provider_id'=>$request->provider_id
         ]);
+        return response()->json(['status'=>'success','message'=>'service updated']);
     }
     }
 
