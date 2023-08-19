@@ -16,7 +16,7 @@ class ServiceController extends Controller
     {
         $service = Service::all();
         $resource = ServiceResource::collection($service);
-        return response()->json(['success'=>'true','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource]);
     }
 
 
@@ -24,7 +24,7 @@ class ServiceController extends Controller
     {
         $service = Service::where('provider_id',auth()->guard('developer')->id())->get();
         $resource = ServiceResource::collection($service);
-        return response()->json(['success'=>'true','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource]);
     }
 
     /**
@@ -34,7 +34,7 @@ class ServiceController extends Controller
     {
         $service = Service::where('provider_id',auth()->guard('developer')->id())->findorfail($id)->get();
         $resource = ServiceResource::make($service);
-        return response()->json(['success'=>'true','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource]);
     }
 
     public function acceptService($id){
