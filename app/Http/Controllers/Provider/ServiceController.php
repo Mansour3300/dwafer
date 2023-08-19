@@ -17,6 +17,13 @@ class ServiceController extends Controller
         return response()->json(['success'=>'true','data'=>$service]);
     }
 
+
+    public function myWork()
+    {
+        $service = Service::where('provider_id',auth()->guard('developer')->id())->get();
+        return response()->json(['success'=>'true','data'=>$service]);
+    }
+
     /**
      * Display the specified resource.
      */

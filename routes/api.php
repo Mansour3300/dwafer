@@ -144,8 +144,9 @@ Route::group([
     Route::post('request/pick/{id}',[ServiceController::class,'pickService'])->middleware('auth:developer');
     Route::post('request/accept/{id}',[ServiceController::class,'acceptService'])->middleware('auth:developer');
     Route::get('request/show/{id}',[ServiceController::class,'show'])->middleware('auth:developer');
-    Route::get('request/index',[ServiceController::class,'index'])->middleware('auth:developer');  //اعرضه من غير
+    Route::get('request/index',[ServiceController::class,'index'])->middleware('auth:developer');
     Route::post('request/refuse/{id}',[ServiceController::class,'refuseService'])->middleware('auth:developer');
+    Route::get('request/mywork',[ServiceController::class,'myWork'])->middleware('auth:developer');
 });
 
 /*---------------------------------------------------------*/
