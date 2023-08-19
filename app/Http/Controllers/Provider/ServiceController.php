@@ -6,7 +6,7 @@ use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class RequestServiceController extends Controller
+class ServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +25,7 @@ class RequestServiceController extends Controller
         $service = Service::where('provider_id',auth()->guard('developer')->id())->finorfail($id)->get();
         return response()->json(['success'=>'true','data'=>$service]);
     }
-    
+
     public function acceptService($id){
         $check = Service::findorfail($id);
         if($check->provider_id == auth()->guard('developer')->id()){

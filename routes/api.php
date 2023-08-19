@@ -14,10 +14,12 @@ use App\Http\Controllers\Home\HomeSliderController;
 use App\Http\Controllers\Home\HomeProjectController;
 use App\Http\Controllers\Provider\ProfileController;
 use App\Http\Controllers\Provider\ProjectController;
+use App\Http\Controllers\Provider\ServiceController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Home\HomeCategoryController;
 use App\Http\Controllers\Home\HomeProviderController;
 use App\Http\Controllers\Home\HomeSubCategoryController;
+use App\Http\Controllers\Client\RequestServiceController;
 use App\Http\Controllers\Provider\ProviderAuthController;
 
 /*
@@ -48,6 +50,12 @@ Route::group([
     Route::post('resetcode', [AuthController::class,'resetcode']);
     Route::post('reset', [AuthController::class,'resetpass']);
     Route::post('activation', [AuthController::class,'verifyAccount']);
+
+    Route::post('request/store',[RequestServiceController::class,'store']);
+    Route::post('request/update/{id}',[RequestServiceController::class,'update']);
+    Route::get('request/show/{id}',[RequestServiceController::class,'show']);
+    Route::get('request/index',[RequestServiceController::class,'index']);  //اعرضه من غير
+    Route::get('request/delete/{id}',[RequestServiceController::class,'destroy']);
 
 });
 
@@ -132,6 +140,12 @@ Route::group([
     Route::get('profile/show/{id}',[ProfileController::class,'show'])->middleware('auth:developer');
     Route::get('profile/index',[ProfileController::class,'index'])->middleware('auth:developer');
     Route::get('profile/delete/{id}',[ProfileController::class,'destroy'])->middleware('auth:developer');
+
+    Route::post('request/pick/{id}',[ServiceController::class,'pickService']);
+    Route::post('request/accept/{id}',[ServiceController::class,'acceptService']);
+    Route::get('request/show/{id}',[ServiceController::class,'show']);
+    Route::get('request/index',[ServiceController::class,'index']);  //اعرضه من غير
+    Route::get('request/refuse/{id}',[ServiceController::class,'refuseService']);
 });
 
 /*---------------------------------------------------------*/
