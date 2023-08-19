@@ -24,7 +24,8 @@ class ServiceResource extends JsonResource
             'attachment'=>asset('storage/'.$this->attachment),
             'budget'=>$this->budget,
             'title'=>$this->title,
-            'status_of_request'=>$this->status_of_request
+            'status_of_request'=>$this->status_of_request,
+            'request date'=>date_format($this->created_at,'Y-m-d')
         ];
     }
 }
