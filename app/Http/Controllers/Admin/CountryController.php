@@ -21,7 +21,7 @@ class CountryController extends Controller
         $new_country['country_image']= $request->file('country_image')->store('image','public');
         Country::create($new_country);
 
-        return response()->json(['success'=>'true','message'=>'you added country successfully']);
+        return response()->json(['success'=>'true','data'=>null,'message'=>'you added country successfully']);
     }
 
 
@@ -31,13 +31,13 @@ class CountryController extends Controller
         return response()->json(['status'=>'success','data'=>$country]);
     }
 
-    
+
     public function update(CountryRequest $request, string $id)
     {
         $data = $request->validated();
         $data['country_image']= $request->file('country_image')->store('image','public');
         Country::findorfail($id)->update($data);
-        return response()->json(['success'=>'true','message'=>'country updated'/*,'new'=>$new*/]);
+        return response()->json(['success'=>'true','data'=>null,'message'=>'country updated']);
     }
 
     public function destroy(string $id)
@@ -46,6 +46,6 @@ class CountryController extends Controller
         $country = Country::findorfail($id);
         unlink(storage_path('app/public/'.$country_image));
         $country->delete();
-        return response()->json(['status'=>'success','message'=>'country deleted']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>'country deleted']);
     }
 }

@@ -22,7 +22,7 @@ class ProviderAuthController extends Controller
         $newuser= $request->validated();
         if($newuser['provider_type']=='company'){
             if($request->company_registeration_image==null){
-                return response()->json(['status'=>'fail','message'=>'company registeration image can not be empty']);
+                return response()->json(['status'=>'fail','data'=>null,'message'=>'company registeration image can not be empty']);
 
             }elseif($request->company_registeration_image!=null){
                 $newuser['company_registeration_image']= $request->file('company_registeration_image')->store('image','public');
@@ -33,7 +33,7 @@ class ProviderAuthController extends Controller
                     $provider = Provider::where('phone',$request->phone)->first();
                     $provider->developerSub()->attach($sub_category_id);
                 }
-                return response()->json(['status'=>'success','message'=>'your are now registered as a company']);
+                return response()->json(['status'=>'success','data'=>null,'message'=>'your are now registered as a company']);
             }
         }elseif($newuser['provider_type']=='free_lancer'){
                 $newuser['password']=Hash::make($newuser['password']);
@@ -43,7 +43,7 @@ class ProviderAuthController extends Controller
                     $provider = Provider::where('phone',$request->phone)->first();
                     $provider->developerSub()->attach($sub_category_id);
                 }
-                return response()->json(['status'=>'success','message'=>'your are now registered as a freelancer']);
+                return response()->json(['status'=>'success','data'=>null,'message'=>'your are now registered as a freelancer']);
         }
 
 }
@@ -57,9 +57,9 @@ class ProviderAuthController extends Controller
         $user = Provider::where('otp_code',$otp);
         if($user->exists()){
             $user->update(['activation'=>'active']);
-            return response()->json(['success'=>'true','message'=>'your account is now active']);
+            return response()->json(['success'=>'true','data'=>null,'message'=>'your account is now active']);
         }else{
-            return response()->json(['success'=>'false','message'=>'your code is not valied']);
+            return response()->json(['success'=>'false','data'=>null,'message'=>'your code is not valied']);
         }
     }
 
@@ -72,7 +72,7 @@ public function login(LoginRequest $request){
         if($token = auth()->guard('developer')->attempt($login_data)){
             return response()->json(['status'=>'success','token'=>$token]);
         }else{
-            return response()->json(['status'=>'failed','message'=>'access denied']);
+            return response()->json(['status'=>'failed','data'=>null,'message'=>'access denied']);
             }
 }
 /*------------------------------------------------------------------------------------------*/
@@ -80,7 +80,7 @@ public function login(LoginRequest $request){
     public function logout()
     {
         auth()->logout();
-        return response()->json(['status'=>'success','message'=>'you are loged out']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>'you are loged out']);
     }
 /*------------------------------------------------------------------------------------------*/
 
@@ -89,7 +89,7 @@ public function login(LoginRequest $request){
         $phone = $request->validated();
         $user = Provider::where('phone',$phone)->first();
         // $user->notify(new ForgotPassOtpNotification());
-        return response()->json(['status'=>'success','message'=>'an otp number sent to your phone number']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>'an otp number sent to your phone number']);
     }
 
     /*----------------------------------------------------------------------------------------*/
@@ -101,9 +101,9 @@ public function login(LoginRequest $request){
         $user = Provider::where(['otp_code'=>$request->otp_code,
                              'phone'=>$request->phone])->first();
         if($user->exists()){
-            return response()->json(['status'=>'success','message'=>'code is valied']);
+            return response()->json(['status'=>'success','data'=>null,'message'=>'code is valied']);
         }else{
-            return response()->json(['status'=>'fail','message'=>'code is not valied']);
+            return response()->json(['status'=>'fail','data'=>null,'message'=>'code is not valied']);
         }
     }
     /*---------------------------------------------------------------------------------------*/
@@ -116,7 +116,7 @@ public function login(LoginRequest $request){
         $user->update(['password'=>Hash::make($request->password)]);
         $user->tokens()->delete();
 
-        return response()->json(['status'=>'success','message'=>'your passowrd is now changed successfully']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>'your passowrd is now changed successfully']);
     }
 
 

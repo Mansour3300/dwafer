@@ -29,7 +29,7 @@ class CategoryController extends Controller
         $new_category = $request->validated();
         $new_category['category_image']=$request->file('category_image')->store('image','public');
         Category::create($new_category);
-        return response()->json(['status'=>'success','message'=>'you just added new category']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>'you just added new category']);
     }
 
      /**
@@ -53,7 +53,7 @@ class CategoryController extends Controller
             'category_image'=>$request->file('category_image')->store('image','public'),
             'category_name'=>$request->category_name
         ]);
-        return response()->json(['status'=>'success','message'=>'you just updated category']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>'you just updated category']);
     }
 
     /**
@@ -65,6 +65,6 @@ class CategoryController extends Controller
         $category = Category::findorfail($id);
         unlink(storage_path('app/public/'.$category_image));
         $category->delete();
-        return response()->json(['status'=>'success','message'=>'category just deleted']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>'category just deleted']);
     }
 }

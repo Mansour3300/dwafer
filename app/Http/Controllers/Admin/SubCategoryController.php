@@ -29,7 +29,7 @@ class SubCategoryController extends Controller
         $new_sub_category = $request->validated();
         $new_sub_category['sub_category_image']=$request->file('sub_category_image')->store('image','public');
         SubCategory::create($new_sub_category);
-        return response()->json(['status'=>'success','message'=>'you just added new sub category']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>'you just added new sub category']);
     }
 
     /**
@@ -53,7 +53,7 @@ class SubCategoryController extends Controller
             'sub_category_image'=>$request->file('sub_category_image')->store('image','public'),
             'sub_category_name'=>$request->sub_category_name
         ]);
-        return response()->json(['status'=>'success','message'=>'you just updated sub category']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>'you just updated sub category']);
     }
 
     /**
@@ -65,6 +65,6 @@ class SubCategoryController extends Controller
         $sub_category = SubCategory::findorfail($id);
         unlink(storage_path('app/public/'.$sub_category_image));
         $sub_category->delete();
-        return response()->json(['status'=>'success','message'=>'category just deleted']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>'category just deleted']);
     }
 }
