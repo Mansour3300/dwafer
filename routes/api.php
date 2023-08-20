@@ -64,7 +64,7 @@ Route::group([
 
 Route::group([
 
-    'middleware' => ['api'],/**'checkadmin'*/
+    'middleware' => ['api' , 'checklang'],/**'checkadmin'*/
     'namespace' => 'App\Http\Controllers\Admin',
     'prefix' => 'admin'
 
@@ -116,7 +116,7 @@ Route::group([
 
 Route::group([
 
-    'middleware' => ['api'],/*,auth:developer*/
+    'middleware' => ['api','checklang'],/*,auth:developer*/
     'namespace' => 'App\Http\Controllers\Provider',
     'prefix' => 'provider'
 
@@ -154,7 +154,7 @@ Route::group([
 
 Route::group([
 
-    'middleware' => 'api',
+    'middleware' => ['api','checklang'],
     'namespace' => 'App\Http\Controllers\Home',
     'prefix' => 'home'
 
