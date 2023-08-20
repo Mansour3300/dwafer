@@ -22,7 +22,7 @@ class AdminAuthController extends Controller
         $new_admin['otp_code']=rand(0000,9999);
         $new_admin['type']='admin';
         User::create($new_admin);
-            return response()->json(['status'=>'success','data'=>null,'message'=>'yor are now registered']);
+            return response()->json(['status'=>'success','data'=>null,'message'=>trans('auth.auth.your_are_now_registered')]);
 
 }
 /*------------------------------------------------------------------------------------------*/

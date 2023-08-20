@@ -18,10 +18,10 @@ class AuthController extends Controller
     public function register(RegisterationRequest $request){
 
         $newuser= $request->validated();
-        $newuser['password']=Hash::make($newuser['password']);
+        $newuser['password']=Hash::make($newuser['password']); //ned set attarbute in model
         $newuser['otp_code']=rand(0000,9999);
         User::create($newuser);
-            return response()->json(['status'=>'success','data'=>null,'message'=>'yor are now registered']);
+            return response()->json(['status'=>'success','data'=>null,'message'=>trans('auth.auth.your_are_now_registered')]);
 
 }
 /*------------------------------------------------------------------------------------------*/
