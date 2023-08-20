@@ -38,7 +38,7 @@ use App\Http\Controllers\Provider\ProviderAuthController;
 // });
 Route::group([
 
-    'middleware' => 'api',
+    'middleware' => ['api','checklang'],
     'namespace' => 'App\Http\Controllers\Client',
     'prefix' => 'auth'
 
