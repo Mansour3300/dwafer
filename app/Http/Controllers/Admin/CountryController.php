@@ -12,7 +12,7 @@ class CountryController extends Controller
     public function index()
     {
         $country= Country::all();
-        return response()->json(['success'=>'true','data'=>$country]);
+        return response()->json(['success'=>'true','data'=>$country,'message'=>'']);
     }
 
     public function store(CountryRequest $request)
@@ -28,7 +28,7 @@ class CountryController extends Controller
     public function show(string $id)
     {
         $country = Country::findorfail($id);
-        return response()->json(['status'=>'success','data'=>$country]);
+        return response()->json(['status'=>'success','data'=>$country,'message'=>'']);
     }
 
 

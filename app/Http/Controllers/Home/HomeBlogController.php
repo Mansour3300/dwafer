@@ -13,7 +13,7 @@ class HomeBlogController extends Controller
     {
         $blogs = Blog::paginate(5);
         $resource = BlogResource::collection($blogs);
-        return response()->json(['status'=>'success','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
     }
 
 
@@ -21,7 +21,7 @@ class HomeBlogController extends Controller
     {
         $blogs = Blog::findorfail($id);
         $resource = BlogResource::make($blogs);
-        return response()->json(['status'=>'success','data'=>$blogs]);
+        return response()->json(['status'=>'success','data'=>$blogs,'message'=>'']);
     }
 }
 

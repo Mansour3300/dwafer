@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Http\Requests\ApiMasterRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CountryRequest extends FormRequest
+class CountryRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.

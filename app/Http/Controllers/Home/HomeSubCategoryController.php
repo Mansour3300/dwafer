@@ -13,6 +13,6 @@ class HomeSubCategoryController extends Controller
     {
         $sub_category = SubCategory::findorfail($id);
         $resource = OneSubCategoryResource::make($sub_category);
-        return response()->json(['status'=>'success','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
     }
 }

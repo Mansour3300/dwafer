@@ -14,7 +14,7 @@ class HomeProviderController extends Controller
     {
         $providers = Provider::all();
         $resource = AllProviderResource::collection($providers);
-        return response()->json(['status'=>'success','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
     }
 
 
@@ -22,6 +22,6 @@ class HomeProviderController extends Controller
     {
         $provider = Provider::findorfail($id);
         $resource = ProviderResource::make($provider);
-        return response()->json(['status'=>'success','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
     }
 }

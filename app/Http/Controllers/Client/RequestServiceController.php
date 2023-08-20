@@ -17,7 +17,7 @@ class RequestServiceController extends Controller
     {
         $service = Service::where('user_id',auth('api')->id())->get();
         $resource = ServiceResource::collection($service);
-        return response()->json(['status'=>'success','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
     }
 
     /**
@@ -39,7 +39,7 @@ class RequestServiceController extends Controller
     {
         $service_request = Service::where('user_id',auth('api')->id())->findorfail($id);
         $resource = ServiceResource::make($service_request);
-        return response()->json(['status'=>'success','data'=>null,'data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>null,'data'=>$resource,'message'=>'']);
     }
 
     /**

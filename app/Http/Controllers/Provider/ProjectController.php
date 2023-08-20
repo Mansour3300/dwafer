@@ -15,7 +15,7 @@ class ProjectController extends Controller
         $projects = Project::where('provider_id',auth()->guard('developer')->id())
                       ->get();
                       $resource = ProjectResource::collection($projects);
-        return response()->json(['status'=>'success','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
     }
 
 
@@ -33,7 +33,7 @@ class ProjectController extends Controller
     {
         $project = Project::where('provider_id',auth()->guard('developer')->id())->findorfail($id);
         $resource = ProjectResource::make($project);
-        return response()->json(['status'=>'success','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
     }
 
 

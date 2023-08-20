@@ -18,7 +18,7 @@ class ProfileController extends Controller
         $profile = Profile::where('provider_id',auth()->guard('developer')->id())
                       ->first();
         $resource = ProfileResource::make($profile);
-        return response()->json(['status'=>'success','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
     }
 
     /**
@@ -42,7 +42,7 @@ class ProfileController extends Controller
         $profile = Profile::where('id',$id)
                             ->first();
         $resource = ProfileResource::make($profile);
-        return response()->json(['status'=>'success','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
     }
 
     /**

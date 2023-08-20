@@ -18,7 +18,7 @@ class SubCategoryController extends Controller
     {
         $sub_categories = SubCategory::all();
         $resource = SubCategoryResource::collection($sub_categories);
-        return response()->json(['status'=>'success','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
     }
 
     /**
@@ -39,7 +39,7 @@ class SubCategoryController extends Controller
     {
         $sub_category = Subcategory::findorfail($id);
         $resource = OneSubCategoryResource::make($sub_category);
-        return response()->json(['status'=>'success','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
     }
 
     /**

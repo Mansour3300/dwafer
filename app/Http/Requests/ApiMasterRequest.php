@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests;
 
-use App\Http\Requests\ApiMasterRequest;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
-class SliderRequest extends ApiMasterRequest
+class ApiMasterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +24,17 @@ class SliderRequest extends ApiMasterRequest
     public function rules(): array
     {
         return [
-            'image'=>'required|mimes:jpeg,jpg,png,gif|max:1000',
-            'video'=>'required|mimes:mp4,mov,ogg|max:20000'
+            //
         ];
     }
+
+    protected function failedValidation(Validator $validator)
+    {
+
+         throw new HttpResponseException(
+            response()->json(['status'=>'fail',
+            'message'=>$validator->messages()->first(),
+            'data'=>null])
+         );
+}
 }

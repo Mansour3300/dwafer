@@ -13,6 +13,6 @@ class HomeSliderController extends Controller
     {
         $slider = Slider::paginate(5);
         $resource = SliderResource::collection($slider);
-        return response()->json(['status'=>'success','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
     }
 }

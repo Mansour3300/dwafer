@@ -18,7 +18,7 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
         $resource = CategoryResource::collection($categories);
-        return response()->json(['status'=>'success','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
     }
 
     /**
@@ -39,7 +39,7 @@ class CategoryController extends Controller
     {
         $category = Category::findorfail($id);
         $resource = OneCategoryResource::make($category);
-        return response()->json(['status'=>'success','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
     }
 
     /**

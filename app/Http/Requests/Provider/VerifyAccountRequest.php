@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Provider;
 
+use App\Http\Requests\ApiMasterRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class VerifyAccountRequest extends FormRequest
+class VerifyAccountRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.

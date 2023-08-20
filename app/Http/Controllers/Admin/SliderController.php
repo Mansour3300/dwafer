@@ -17,7 +17,7 @@ class SliderController extends Controller
     {
         $Slider = Slider::paginate(5);
         $resource = SliderResource::collection($Slider);
-        return response()->json(['status'=>'success','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
     }
 
     /**
@@ -39,7 +39,7 @@ class SliderController extends Controller
     {
         $Slider = Slider::findorfail($id);
         $resource = SliderResource::make($Slider);
-        return response()->json(['status'=>'success','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
     }
 
     /**

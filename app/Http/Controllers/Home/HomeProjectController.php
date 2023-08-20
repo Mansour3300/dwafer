@@ -14,13 +14,13 @@ class HomeProjectController extends Controller
     {
         $Projects = Project::all();
         $resource = ProjectResource::collection($Projects);
-        return response()->json(['status'=>'success','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
     }
 
     public function show($id)
     {
         $Project = Project::findorfail($id);
         $resource = OneProjectResource::make($Project);
-        return response()->json(['status'=>'success','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
     }
 }

@@ -13,8 +13,8 @@ class HomeSearchController extends Controller
         $search = Provider::where('full_name', 'like','%'.$term. '%')->get();
         if(count($search)){
             $resource = ProviderResource::collection($search);
-        return response()->json(['status'=>'success','data'=>$resource]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
         }
-        return response()->json(['status'=>'fail','message'=>'no such result found']);
+        return response()->json(['status'=>'fail','data'=>null,'message'=>'no such result found']);
         }
 }
