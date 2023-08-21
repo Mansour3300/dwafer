@@ -12,14 +12,16 @@ return[
         'account_deleted_successfully'=>'تم حذف الحساب بنجاح',
         'you_are_now_registered_as_a_company'=>'أنت مسجل الآن كشركة',
         'you_are_now_registered_as_a_freelancer'=>'أنت مسجل الآن كمستقل'
-            ],
+        ],
 
     "blog"=>[
             'you_just_created_post_successfully'=>'لقد قمت بإنشاء المنشور بنجاح',
             'you_just_updated_post_successfully'=>'لقد قمت بتحديث المنشور بنجاح',
             'post_just_deleted'=>'تم حذف المنشور '
-            ],
+        ],
 
-            
+    "category"=>[
+            ''
+        ]
     ];
 ?>

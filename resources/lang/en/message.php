@@ -12,14 +12,16 @@ return[
         'account_deleted_successfully'=>'account deleted successfully',
         'you_are_now_registered_as_a_company'=>'your are now registered as a company',
         'you_are_now_registered_as_a_freelancer'=>'you are now registered as a freelancer'
-            ],
+        ],
 
     "blog"=>[
         'you_just_created_post_successfully'=>'you just created post successfully',
         'you_just_updated_post_successfully'=>'you just updated post successfully',
         'post_just_deleted'=>'post just deleted'
-            ],
+        ],
 
-            
+    "category"=>[
+        ''
+        ]
     ];
 ?>

@@ -32,7 +32,7 @@ class ProviderAuthController extends Controller
                     $provider = Provider::where('phone',$request->phone)->first();
                     $provider->developerSub()->attach($sub_category_id);
                 }
-                return response()->json(['status'=>'success','data'=>null,'message'=>trans('auth.auth.you_are_now_registered_as_a_company')]);
+                return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.auth.you_are_now_registered_as_a_company')]);
             }
         }elseif($newuser['provider_type']=='free_lancer'){
                 $newuser['otp_code']=rand(0000,9999);
@@ -41,7 +41,7 @@ class ProviderAuthController extends Controller
                     $provider = Provider::where('phone',$request->phone)->first();
                     $provider->developerSub()->attach($sub_category_id);
                 }
-                return response()->json(['status'=>'success','data'=>null,'message'=>'you are now registered as a freelancer']);
+                return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.auth.you_are_now_registered_as_a_freelancer')]);
         }
 
 }
@@ -55,9 +55,9 @@ class ProviderAuthController extends Controller
         $user = Provider::where('otp_code',$otp);
         if($user->exists()){
             $user->update(['activation'=>'active']);
-            return response()->json(['success'=>'true','data'=>null,'message'=>trans('auth.auth.your_account_is_now_active')]);
+            return response()->json(['success'=>'true','data'=>null,'message'=>trans('message.auth.your_account_is_now_active')]);
         }else{
-            return response()->json(['success'=>'false','data'=>null,'message'=>trans('auth.auth.your_code_is_not_valied')]);
+            return response()->json(['success'=>'false','data'=>null,'message'=>trans('message.auth.your_code_is_not_valied')]);
         }
     }
 
@@ -70,7 +70,7 @@ public function login(LoginRequest $request){
         if($token = auth()->guard('developer')->attempt($login_data)){
             return response()->json(['status'=>'success','token'=>$token]);
         }else{
-            return response()->json(['status'=>'failed','data'=>null,'message'=>trans('auth.auth.access_denied')]);
+            return response()->json(['status'=>'failed','data'=>null,'message'=>trans('message.auth.access_denied')]);
             }
 }
 /*------------------------------------------------------------------------------------------*/
@@ -78,7 +78,7 @@ public function login(LoginRequest $request){
     public function logout()
     {
         auth()->logout();
-        return response()->json(['status'=>'success','data'=>null,'message'=>trans('auth.auth.you_are_loged_out')]);
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.auth.you_are_loged_out')]);
     }
 /*------------------------------------------------------------------------------------------*/
 
@@ -87,7 +87,7 @@ public function login(LoginRequest $request){
         $phone = $request->validated();
         $user = Provider::where('phone',$phone)->first();
         // $user->notify(new ForgotPassOtpNotification());
-        return response()->json(['status'=>'success','data'=>null,'message'=>trans('auth.auth.an_otp_number_sent_to_your_phone_number')]);
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.auth.an_otp_number_sent_to_your_phone_number')]);
     }
 
     /*----------------------------------------------------------------------------------------*/
@@ -99,9 +99,9 @@ public function login(LoginRequest $request){
         $user = Provider::where(['otp_code'=>$request->otp_code,
                              'phone'=>$request->phone])->first();
         if($user->exists()){
-            return response()->json(['status'=>'success','data'=>null,'message'=>trans('auth.auth.code_is_valied')]);
+            return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.auth.code_is_valied')]);
         }else{
-            return response()->json(['status'=>'fail','data'=>null,'message'=>trans('auth.auth.code_is_not_valied')]);
+            return response()->json(['status'=>'fail','data'=>null,'message'=>trans('message.auth.code_is_not_valied')]);
         }
     }
     /*---------------------------------------------------------------------------------------*/
@@ -114,7 +114,7 @@ public function login(LoginRequest $request){
         $user->update([$request->password]);
         $user->tokens()->delete();
 
-        return response()->json(['status'=>'success','data'=>null,'message'=>trans('auth.auth.your_passowrd_is_now_changed_successfully')]);
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.auth.your_passowrd_is_now_changed_successfully')]);
     }
 
 
