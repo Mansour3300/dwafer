@@ -32,9 +32,11 @@ class ApiMasterRequest extends FormRequest
     {
 
          throw new HttpResponseException(
-            response()->json(['status'=>'fail',
-            'message'=>$validator->messages()->first(),
-            'data'=>null])
+            response()->json([
+                'status'=>'fail',
+                'message'=>$validator->messages()->first(),
+                'data'=>null
+                ])
          );
 }
 }
