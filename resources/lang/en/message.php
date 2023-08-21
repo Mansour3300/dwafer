@@ -57,5 +57,17 @@ return[
         'service_refused'=>'service refused',
         'service_accepted'=>'service accepted'
         ],
+
+    "project"=>[
+        'you_just_created_new_project_successfully'=>'you just created new project successfully',
+        'you_just_updated_project_successfully'=>'you just updated project successfully',
+        'project_just_deleted'=>'project just deleted'
+        ],
+
+    "profile"=>[
+        'you_made_your_profile'=>'you made your profile',
+        'you_updated_your_profile'=>'you updated your profile',
+        'profile_just_deleted'=>'profile just deleted'
+        ]
     ];
 ?>

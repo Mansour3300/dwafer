@@ -25,7 +25,7 @@ class ProjectController extends Controller
         $new_project['provider_id']=auth()->guard('developer')->id();
         $new_project['project_image']=$request->file('project_image')->store('image','public');
         Project::create($new_project);
-        return response()->json(['status'=>'success','data'=>null,'message'=>'you just created new project successfully']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.project.you_just_created_new_project_successfully')]);
     }
 
 
@@ -46,7 +46,7 @@ class ProjectController extends Controller
             'project_name'=>$request->project_name,
             'project_discreption'=>$request->project_discreption
         ]);
-        return response()->json(['status'=>'success','data'=>null,'message'=>'you just updated project successfully']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.project.you_just_updated_project_successfully')]);
     }
 
 
@@ -56,6 +56,6 @@ class ProjectController extends Controller
         $project = Project::findorfail($id);
         unlink(storage_path('app/public/'.$project_image));
         $project->delete();
-        return response()->json(['status'=>'success','data'=>null,'message'=>'project just deleted']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.project.project_just_deleted')]);
     }
 }

@@ -58,6 +58,16 @@ return[
         'service_accepted'=>'تم قبول الطلب'
         ],
 
+    "project"=>[
+        'you_just_created_new_project_successfully'=>'لقد قمت للتو بإنشاء مشروع جديد بنجاح',
+        'you_just_updated_project_successfully'=>'لقد قمت للتو بتحديث المشروع بنجاح',
+        'project_just_deleted'=>'تم حذف المشروع للتو'
+        ],
 
+    "profile"=>[
+        'you_made_your_profile'=>'لقد قمت بإنشاء ملف التعريف الخاص بك',
+        'you_updated_your_profile'=>'لقد قمت بتحديث ملف التعريف الخاص بك',
+        'profile_just_deleted'=>'الملف الشخصي محذوف للتو'
+        ]
     ];
 ?>

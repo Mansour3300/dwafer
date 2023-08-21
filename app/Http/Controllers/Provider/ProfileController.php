@@ -30,7 +30,7 @@ class ProfileController extends Controller
         $profile['image']=$request->file('image')->store('image','public');
         $profile['provider_id']=auth()->guard('developer')->id();
         Profile::create($profile);
-        return response()->json(['status'=>'success','data'=>null,'message'=>'you made your profile']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.profile.you_made_your_profile')]);
 
     }
 
@@ -56,7 +56,7 @@ class ProfileController extends Controller
             'image'=>$request->file('image')->store('image','public'),
             'bio'=>$request->bio
         ]);
-        return response()->json(['status'=>'success','data'=>null,'message'=>'you updated your profile']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.profile.you_updated_your_profile')]);
     }
 
     /**
@@ -68,6 +68,6 @@ class ProfileController extends Controller
         $profile = Profile::findorfail($id);
         unlink(storage_path('app/public/'.$profile_image));
         $profile->delete();
-        return response()->json(['status'=>'success','data'=>null,'message'=>'profile just deleted']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.profile.profile_just_deleted')]);
     }
 }
