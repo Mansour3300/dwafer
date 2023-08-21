@@ -41,9 +41,9 @@ class ServiceController extends Controller
         $check = Service::findorfail($id);
         if($check->provider_id == auth()->guard('developer')->id()){
            $check->update(['status_of_request'=>'accepted']);
-           return response()->json(['status'=>'success','data'=>null,'message'=>'service accepted']);
+           return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.service.service_accepted')]);
         }else{
-           return response()->json(['status'=>'failed','data'=>null,'message'=>'this request is not avilable']);
+           return response()->json(['status'=>'failed','data'=>null,'message'=>trans('message.service.this_request_is_not_avilable')]);
         }
     }
 
@@ -51,9 +51,9 @@ class ServiceController extends Controller
         $check = Service::findorfail($id);
         if($check->provider_id == auth()->guard('developer')->id()){
            $check->update(['status_of_request'=>'refused']);
-           return response()->json(['status'=>'success','data'=>null,'message'=>'service refused']);
+           return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.service.service_refused')]);
         }else{
-           return response()->json(['status'=>'failed','data'=>null,'message'=>'this request is not avilable']);
+           return response()->json(['status'=>'failed','data'=>null,'message'=>trans('message.service.this_request_is_not_avilable')]);
         }
    }
 
@@ -64,7 +64,7 @@ class ServiceController extends Controller
                            'status_of_request'=>'accepted']);
            return response()->json(['status'=>'success','data'=>$check,'message'=>'']);
         }else{
-           return response()->json(['status'=>'failed','data'=>null,'message'=>'this request is not avilable']);
+           return response()->json(['status'=>'failed','data'=>null,'message'=>trans('message.service.this_request_is_not_avilable')]);
         }
    }
 }

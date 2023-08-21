@@ -15,6 +15,6 @@ class HomeSearchController extends Controller
             $resource = ProviderResource::collection($search);
         return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
         }
-        return response()->json(['status'=>'fail','data'=>null,'message'=>'no such result found']);
+        return response()->json(['status'=>'fail','data'=>null,'message'=>trans('message.search.no_such_result_found')]);
         }
 }

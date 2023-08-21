@@ -42,6 +42,20 @@ return[
         'you_just_added_new_sub_category'=>'you just added new sub category',
         'you_just_updated_sub_category'=>'you just updated sub category',
         'category_just_deleted'=>'category just deleted'
-        ]
+        ],
+
+    "search"=>[
+        'no_such_result_found'=>'no such result found'
+        ],
+
+    "service"=>[
+        'new_service_request_added'=>'new service request added',
+        'sorry_your_service_has_been_refused'=>'sorry your service has been refused',
+        'service_updated'=>'service updated',
+        'service_just_deleted'=>'service just deleted',
+        'this_request_is_not_avilable'=>'this request is not avilable',
+        'service_refused'=>'service refused',
+        'service_accepted'=>'service accepted'
+        ],
     ];
 ?>

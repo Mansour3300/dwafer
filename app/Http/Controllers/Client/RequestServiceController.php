@@ -29,7 +29,7 @@ class RequestServiceController extends Controller
         $service['attachment']=$request->file('attachment')->store('file','public');
         $service['user_id']=auth('api')->id();
         Service::create($service);
-        return response()->json(['status'=>'success','data'=>null,'message'=>'new service request added']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.service.new_service_request_added')]);
     }
 
     /**
@@ -50,7 +50,7 @@ class RequestServiceController extends Controller
         $request->validated();
         $service = Service::where('user_id',auth('api')->id())->findorfail($id);
         if($service->status == 'refused'){
-            return response()->json(['status'=>'fail','data'=>null,'message'=>'sorry your service has been refused']);
+            return response()->json(['status'=>'fail','data'=>null,'message'=>trans('message.service.sorry_your_service_has_been_refused')]);
         }else{
         $service->update([
             'attachment'=>$request->file('attachment')->store('file','public'),
@@ -61,7 +61,7 @@ class RequestServiceController extends Controller
             'budget'=>$request->budget,
             'provider_id'=>$request->provider_id
         ]);
-        return response()->json(['status'=>'success','data'=>null,'message'=>'service updated']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.service.service_updated')]);
     }
     }
 
@@ -74,6 +74,6 @@ class RequestServiceController extends Controller
         $service = Service::findorfail($id);
         unlink(storage_path('app/public/'.$service_attachment));
         $service->delete();
-        return response()->json(['status'=>'success','data'=>null,'message'=>'service just deleted']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.service.service_just_deleted')]);
     }
 }

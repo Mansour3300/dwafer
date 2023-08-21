@@ -42,6 +42,22 @@ return[
         'you_just_added_new_sub_category'=>'لقد أضفت للتو فئة فرعية جديدة',
         'you_just_updated_sub_category'=>'لقد قمت للتو بتحديث الفئة الفرعية',
         'category_just_deleted'=>'الفئة محذوفة للتو'
-        ]
+        ],
+
+    "search"=>[
+        'no_such_result_found'=>'لم يتم العثور على مثل هذه النتيجة'
+        ],
+
+    "service"=>[
+        'new_service_request_added'=>'تمت إضافة طلب خدمة جديد',
+        'sorry_your_service_has_been_refused'=>'آسف تم رفض خدمتك',
+        'service_updated'=>'تحديث الخدمة',
+        'service_just_deleted'=>'الخدمة محذوفة للتو',
+        'this_request_is_not_avilable'=>'هذا الطلب غير متاح',
+        'service_refused'=>'تم رفض الطلب',
+        'service_accepted'=>'تم قبول الطلب'
+        ],
+
+
     ];
 ?>
