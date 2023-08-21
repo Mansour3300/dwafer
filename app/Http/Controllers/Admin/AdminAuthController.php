@@ -18,7 +18,6 @@ class AdminAuthController extends Controller
     public function adminRegister(RegisterationRequest $request){
 
         $new_admin= $request->validated();
-        $new_admin['password']=Hash::make($new_admin['password']);
         $new_admin['otp_code']=rand(0000,9999);
         $new_admin['type']='admin';
         User::create($new_admin);
@@ -91,7 +90,7 @@ public function login(LoginRequest $request){
 
         $request->validated();
         $user = User::where('phone',$request->phone)->first();
-        $user->update(['password'=>Hash::make($request->password)]);
+        $user->update([$request->password]);
         $user->tokens()->delete();
         return response()->json(['success'=>'true','data'=>null,'message'=>trans('auth.auth.your_passowrd_is_now_changed_successfully')]);
     }

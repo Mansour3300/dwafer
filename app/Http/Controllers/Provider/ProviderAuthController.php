@@ -26,7 +26,6 @@ class ProviderAuthController extends Controller
 
             }elseif($request->company_registeration_image!=null){
                 $newuser['company_registeration_image']= $request->file('company_registeration_image')->store('image','public');
-                $newuser['password']=Hash::make($newuser['password']);
                 $newuser['otp_code']=rand(0000,9999);
                 Provider::create($newuser);
                 foreach($request->sub_category_ids as $sub_category_id){
@@ -36,7 +35,6 @@ class ProviderAuthController extends Controller
                 return response()->json(['status'=>'success','data'=>null,'message'=>trans('auth.auth.you_are_now_registered_as_a_company')]);
             }
         }elseif($newuser['provider_type']=='free_lancer'){
-                $newuser['password']=Hash::make($newuser['password']);
                 $newuser['otp_code']=rand(0000,9999);
                 Provider::create($newuser);
                 foreach($request->sub_category_ids as $sub_category_id){
@@ -113,7 +111,7 @@ public function login(LoginRequest $request){
 
         $request->validated();
         $user = Provider::where('phone',$request->phone)->first();
-        $user->update(['password'=>Hash::make($request->password)]);
+        $user->update([$request->password]);
         $user->tokens()->delete();
 
         return response()->json(['status'=>'success','data'=>null,'message'=>trans('auth.auth.your_passowrd_is_now_changed_successfully')]);
