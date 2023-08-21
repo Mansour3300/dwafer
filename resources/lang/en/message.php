@@ -21,7 +21,15 @@ return[
         ],
 
     "category"=>[
-        ''
+        'you_just_added_new_category'=>'you just added new category',
+        'you_just_updated_category'=>'you just updated category',
+        'category_just_deleted'=>'category just deleted'
+        ],
+
+    "country"=>[
+        'you_added_country_successfully'=>'you added country successfully',
+        'country_updated'=>'country updated',
+        'country_deleted'=>'country deleted'
         ]
     ];
 ?>

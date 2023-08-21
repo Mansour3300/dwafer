@@ -21,7 +21,15 @@ return[
         ],
 
     "category"=>[
-            ''
+        'you_just_added_new_category'=>'لقد أضفت للتو فئة جديدة',
+        'you_just_updated_category'=>'لقد قمت للتو بتحديث الفئة',
+        'category_just_deleted'=>'الفئة محذوفة للتو'
+        ],
+
+    "country"=>[
+        'you_added_country_successfully'=>'لقد أضفت البلد بنجاح',
+        'country_updated'=>'تم تحديث البلد',
+        'country_deleted'=>'تم حذف البلد'
         ]
     ];
 ?>
