@@ -30,6 +30,18 @@ return[
         'you_added_country_successfully'=>'you added country successfully',
         'country_updated'=>'country updated',
         'country_deleted'=>'country deleted'
+        ],
+
+    "slider"=>[
+        'you_added_new_slide_successfully'=>'you added new slide successfully',
+        'you_updated_slide_successfully'=>'you updated slide successfully',
+        'slide_just_deleted'=>'slide just deleted'
+        ],
+
+    "subcategory"=>[
+        'you_just_added_new_sub_category'=>'you just added new sub category',
+        'you_just_updated_sub_category'=>'you just updated sub category',
+        'category_just_deleted'=>'category just deleted'
         ]
     ];
 ?>

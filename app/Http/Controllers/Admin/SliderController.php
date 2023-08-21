@@ -29,7 +29,7 @@ class SliderController extends Controller
         $new_slide['image']=$request->file('image')->store('image','public');
         $new_slide['video']=$request->file('video')->store('video','public');
         Slider::create($new_slide);
-        return response()->json(['status'=>'success','data'=>null,'message'=>'you added new slide successfully']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.slider.you_added_new_slide_successfully')]);
     }
 
     /**
@@ -53,7 +53,7 @@ class SliderController extends Controller
             $update_slide['image']=$request->file('image')->store('image','public'),
             $update_slide['video']=$request->file('video')->store('video','public')
         ]);
-        return response()->json(['status'=>'success','data'=>null,'message'=>'you updated slide successfully']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.slider.you_updated_slide_successfully')]);
     }
 
     /**
@@ -67,6 +67,6 @@ class SliderController extends Controller
         unlink(storage_path('app/public/'.$slide_image));
         unlink(storage_path('app/public/'.$slide_video));
         $slide->delete();
-        return response()->json(['status'=>'success','data'=>null,'message'=>'slide just deleted']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.slider.slide_just_deleted')]);
     }
 }

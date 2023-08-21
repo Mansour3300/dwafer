@@ -30,6 +30,18 @@ return[
         'you_added_country_successfully'=>'لقد أضفت البلد بنجاح',
         'country_updated'=>'تم تحديث البلد',
         'country_deleted'=>'تم حذف البلد'
+        ],
+
+    "slider"=>[
+        'you_added_new_slide_successfully'=>'لقد أضفت شريحة جديدة بنجاح',
+        'you_updated_slide_successfully'=>'لقد قمت بتحديث الشريحة بنجاح',
+        'slide_just_deleted'=>'تم حذف الشريحة للتو'
+        ],
+
+    "subcategory"=>[
+        'you_just_added_new_sub_category'=>'لقد أضفت للتو فئة فرعية جديدة',
+        'you_just_updated_sub_category'=>'لقد قمت للتو بتحديث الفئة الفرعية',
+        'category_just_deleted'=>'الفئة محذوفة للتو'
         ]
     ];
 ?>
