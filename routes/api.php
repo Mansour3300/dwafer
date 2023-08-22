@@ -16,11 +16,13 @@ use App\Http\Controllers\Provider\ProfileController;
 use App\Http\Controllers\Provider\ProjectController;
 use App\Http\Controllers\Provider\ServiceController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Client\ClientChatController;
 use App\Http\Controllers\Home\HomeCategoryController;
 use App\Http\Controllers\Home\HomeProviderController;
 use App\Http\Controllers\Home\HomeSubCategoryController;
 use App\Http\Controllers\Client\RequestServiceController;
 use App\Http\Controllers\Provider\ProviderAuthController;
+use App\Http\Controllers\Provider\ProviderChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +58,11 @@ Route::group([
     Route::get('request/show/{id}',[RequestServiceController::class,'show'])->middleware('auth');
     Route::get('request/index',[RequestServiceController::class,'index'])->middleware('auth');  //اعرضه من غير
     Route::get('request/delete/{id}',[RequestServiceController::class,'destroy'])->middleware('auth');
+
+    Route::post('chat/store',[ClientChatController::class,'store'])->middleware('auth');
+    Route::get('chat/show/{id}',[ClientChatController::class,'show'])->middleware('auth');
+    Route::get('chat/index',[ClientChatController::class,'index'])->middleware('auth');
+    Route::get('chat/delete/{id}',[ClientChatController::class,'destroy'])->middleware('auth');
 
 });
 
@@ -147,6 +154,11 @@ Route::group([
     Route::get('request/index',[ServiceController::class,'index'])->middleware('auth:developer');
     Route::post('request/refuse/{id}',[ServiceController::class,'refuseService'])->middleware('auth:developer');
     Route::get('request/mywork',[ServiceController::class,'myWork'])->middleware('auth:developer');
+
+    Route::post('chat/store',[ProviderChatController::class,'store'])->middleware('auth:developer');
+    Route::get('chat/show/{id}',[ProviderChatController::class,'show'])->middleware('auth:developer');
+    Route::get('chat/index',[ProviderChatController::class,'index'])->middleware('auth:developer');
+    Route::get('chat/delete/{id}',[ProviderChatController::class,'destroy'])->middleware('auth:developer');
 });
 
 /*---------------------------------------------------------*/

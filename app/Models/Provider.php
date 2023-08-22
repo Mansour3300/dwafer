@@ -1,10 +1,8 @@
 <?php
 
 
-
     namespace App\Models;
 
-    use App\Models\Project;
     use App\Models\SubCategory;
     use Laravel\Sanctum\HasApiTokens;
     use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -76,7 +74,6 @@ class Provider extends Authenticatable implements JWTSubject
             return $this->belongsToMany(SubCategory::class,'sub_category_provider');
         }
 
-    
     }
 
 
