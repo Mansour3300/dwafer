@@ -68,6 +68,11 @@ return[
         'you_made_your_profile'=>'you made your profile',
         'you_updated_your_profile'=>'you updated your profile',
         'profile_just_deleted'=>'profile just deleted'
-        ]
+        ],
+
+    "chat"=>[
+        'you_sent_a_new_message'=>'you sent a new message',
+        'you_deleted_this_message'=>'you deleted this message'
+        ],
     ];
 ?>

@@ -36,7 +36,7 @@ class ProviderChatController extends Controller
         $new_message['provider_id']=auth()->guard('developer')->id();
         $new_message['sender']='provider';
         Chat::create($new_message);
-        return response()->json(['status'=>'success','data'=>null,'message'=>'you sent a new message']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.chat.you_sent_a_new_message')]);
     }
 
     /**
@@ -66,6 +66,6 @@ class ProviderChatController extends Controller
         Chat::where('provider_id',auth()->guard('developer')->id())
             ->where('sender','provider')
             ->findorfail($id)->delete();
-        return response()->json(['status'=>'success','data'=>null,'message'=>'you deleted this message']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.chat.you_deleted_this_message')]);
     }
 }

@@ -68,6 +68,11 @@ return[
         'you_made_your_profile'=>'لقد قمت بإنشاء ملف التعريف الخاص بك',
         'you_updated_your_profile'=>'لقد قمت بتحديث ملف التعريف الخاص بك',
         'profile_just_deleted'=>'الملف الشخصي محذوف للتو'
-        ]
+        ],
+
+    "chat"=>[
+        'you_sent_a_new_message'=>'لقد ارسلت رساله جديده',
+        'you_deleted_this_message'=>'لقد قمت بمسح هذه الرساله'
+            ],
     ];
 ?>

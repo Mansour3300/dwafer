@@ -36,7 +36,7 @@ class ClientChatController extends Controller
         $new_message['user_id']=auth('api')->id();
         $new_message['sender']='user';
         Chat::create($new_message);
-        return response()->json(['status'=>'success','data'=>null,'message'=>'you sent a new message']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.chat.you_sent_a_new_message')]);
     }
 
     /**
@@ -66,6 +66,6 @@ class ClientChatController extends Controller
         Chat::where('user_id',auth('api')->id())
         ->where('sender','user')
         ->findorfail($id)->delete();
-        return response()->json(['status'=>'success','data'=>null,'message'=>'you deleted this message']);
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.chat.you_deleted_this_message')]);
     }
 }
