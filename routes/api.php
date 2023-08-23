@@ -21,8 +21,10 @@ use App\Http\Controllers\Home\HomeCategoryController;
 use App\Http\Controllers\Home\HomeProviderController;
 use App\Http\Controllers\Home\HomeSubCategoryController;
 use App\Http\Controllers\Client\RequestServiceController;
+use App\Http\Controllers\Provider\NotificationController;
 use App\Http\Controllers\Provider\ProviderAuthController;
 use App\Http\Controllers\Provider\ProviderChatController;
+use App\Http\Controllers\Client\ClientNotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +65,8 @@ Route::group([
     Route::get('chat/show/{id}',[ClientChatController::class,'show'])->middleware('auth');
     Route::get('chat/index',[ClientChatController::class,'index'])->middleware('auth');
     Route::get('chat/delete/{id}',[ClientChatController::class,'destroy'])->middleware('auth');
+
+    Route::get('notification',[ClientNotificationController::class,'notification'])->middleware('auth');
 
 });
 
@@ -159,6 +163,8 @@ Route::group([
     Route::get('chat/show/{id}',[ProviderChatController::class,'show'])->middleware('auth:developer');
     Route::get('chat/index',[ProviderChatController::class,'index'])->middleware('auth:developer');
     Route::get('chat/delete/{id}',[ProviderChatController::class,'destroy'])->middleware('auth:developer');
+
+    Route::get('notification',[NotificationController::class,'notification'])->middleware('auth:developer');
 });
 
 /*---------------------------------------------------------*/

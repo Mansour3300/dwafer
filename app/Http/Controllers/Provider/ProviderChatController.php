@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Provider;
 
 use App\Models\Chat;
+use App\Models\User;
+use App\Models\Provider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Provider\ChatRequest;
 use App\Http\Resources\Client\ChatResource;
 use App\Http\Resources\Client\AllChatResource;
+use App\Notifications\ProviderChatNotification;
 
 class ProviderChatController extends Controller
 {
@@ -36,6 +39,10 @@ class ProviderChatController extends Controller
         $new_message['provider_id']=auth()->guard('developer')->id();
         $new_message['sender']='provider';
         Chat::create($new_message);
+        /////////////////////////////
+        $provider = Provider::where('id',auth()->guard('developer')->id())->first();
+                $user = User::where('id',$new_message['user_id'])->first();
+                $user->notify(new ProviderChatNotification($provider));
         return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.chat.you_sent_a_new_message')]);
     }
 
