@@ -77,11 +77,11 @@ Route::group([
 
 ], function ($router) {
 
-    Route::post('country/store',[CountryController::class,'store']);
-    Route::post('country/update/{id}',[CountryController::class,'update']);
+    Route::post('country/store',[CountryController::class,'store'])->middleware('checkadmin','auth');
+    Route::post('country/update/{id}',[CountryController::class,'update'])->middleware('checkadmin','auth');
     Route::get('country/show/{id}',[CountryController::class,'show']);
     Route::get('country/index',[CountryController::class,'index']);  //اعرضه من غير
-    Route::get('country/delete/{id}',[CountryController::class,'destroy']);
+    Route::get('country/delete/{id}',[CountryController::class,'destroy'])->middleware('checkadmin','auth');
 
     Route::post('login', [AdminAuthController::class,'login'])->middleware('checkactivation');
     Route::get('logout', [AdminAuthController::class,'logout']);
@@ -90,31 +90,31 @@ Route::group([
     Route::post('resetcode', [AdminAuthController::class,'resetcode']);
     Route::post('reset', [AdminAuthController::class,'resetpass']);
     Route::post('activation', [AdminAuthController::class,'verifyAccount']);
-    Route::get('delete/{id}', [AdminAuthController::class,'destroy'])->middleware('checksuperadmin');
+    Route::get('delete/{id}', [AdminAuthController::class,'destroy'])->middleware('checksuperadmin','auth');
 
-    Route::post('blog/store',[BlogController::class,'store']);
-    Route::post('blog/update/{id}',[BlogController::class,'update']);
-    Route::get('blog/show/{id}',[BlogController::class,'show']);
-    Route::get('blog/index',[BlogController::class,'index']);
-    Route::get('blog/delete/{id}',[BlogController::class,'destroy']);
+    Route::post('blog/store',[BlogController::class,'store'])->middleware('checkadmin','auth');
+    Route::post('blog/update/{id}',[BlogController::class,'update'])->middleware('checkadmin','auth');
+    Route::get('blog/show/{id}',[BlogController::class,'show'])->middleware('checkadmin','auth');
+    Route::get('blog/index',[BlogController::class,'index'])->middleware('checkadmin','auth');
+    Route::get('blog/delete/{id}',[BlogController::class,'destroy'])->middleware('checkadmin','auth');
 
-    Route::post('category/store',[CategoryController::class,'store']);
-    Route::post('category/update/{id}',[CategoryController::class,'update']);
-    Route::get('category/show/{id}',[CategoryController::class,'show']);
-    Route::get('category/index',[CategoryController::class,'index']);
-    Route::get('category/delete/{id}',[CategoryController::class,'destroy']);
+    Route::post('category/store',[CategoryController::class,'store'])->middleware('checkadmin','auth');
+    Route::post('category/update/{id}',[CategoryController::class,'update'])->middleware('checkadmin','auth');
+    Route::get('category/show/{id}',[CategoryController::class,'show'])->middleware('checkadmin','auth');
+    Route::get('category/index',[CategoryController::class,'index'])->middleware('checkadmin','auth');
+    Route::get('category/delete/{id}',[CategoryController::class,'destroy'])->middleware('checkadmin','auth');
 
-    Route::post('subcategory/store',[SubCategoryController::class,'store']);
-    Route::post('subcategory/update/{id}',[SubCategoryController::class,'update']);
-    Route::get('subcategory/show/{id}',[SubCategoryController::class,'show']);
-    Route::get('subcategory/index',[SubCategoryController::class,'index']);
-    Route::get('subcategory/delete/{id}',[SubCategoryController::class,'destroy']);
+    Route::post('subcategory/store',[SubCategoryController::class,'store'])->middleware('checkadmin','auth');
+    Route::post('subcategory/update/{id}',[SubCategoryController::class,'update'])->middleware('checkadmin','auth');
+    Route::get('subcategory/show/{id}',[SubCategoryController::class,'show'])->middleware('checkadmin','auth');
+    Route::get('subcategory/index',[SubCategoryController::class,'index'])->middleware('checkadmin','auth');
+    Route::get('subcategory/delete/{id}',[SubCategoryController::class,'destroy'])->middleware('checkadmin','auth');
 
-    Route::post('slider/store',[SliderController::class,'store']);
-    Route::post('slider/update/{id}',[SliderController::class,'update']);
-    Route::get('slider/show/{id}',[SliderController::class,'show']);
-    Route::get('slider/index',[SliderController::class,'index']);
-    Route::get('slider/delete/{id}',[SliderController::class,'destroy']);
+    Route::post('slider/store',[SliderController::class,'store'])->middleware('checkadmin','auth');
+    Route::post('slider/update/{id}',[SliderController::class,'update'])->middleware('checkadmin','auth');
+    Route::get('slider/show/{id}',[SliderController::class,'show'])->middleware('checkadmin','auth');
+    Route::get('slider/index',[SliderController::class,'index'])->middleware('checkadmin','auth');
+    Route::get('slider/delete/{id}',[SliderController::class,'destroy'])->middleware('checkadmin','auth');
 
 
 });
