@@ -1,5 +1,6 @@
 <?php
 return[
+
     "auth"=>[
         'you_are_now_registered'=>'انت الان مسجل',
         'your_account_is_now_active'=>'لقد تم تفعيل الحساب',
@@ -23,7 +24,7 @@ return[
     "category"=>[
         'you_just_added_new_category'=>'لقد أضفت للتو فئة جديدة',
         'you_just_updated_category'=>'لقد قمت للتو بتحديث الفئة',
-        'category_just_deleted'=>'الفئة محذوفة للتو'
+        'category_just_deleted'=>'الفئة محذوفة '
         ],
 
     "country"=>[
@@ -35,13 +36,13 @@ return[
     "slider"=>[
         'you_added_new_slide_successfully'=>'لقد أضفت شريحة جديدة بنجاح',
         'you_updated_slide_successfully'=>'لقد قمت بتحديث الشريحة بنجاح',
-        'slide_just_deleted'=>'تم حذف الشريحة للتو'
+        'slide_just_deleted'=>'تم حذف الشريحة '
         ],
 
     "subcategory"=>[
         'you_just_added_new_sub_category'=>'لقد أضفت للتو فئة فرعية جديدة',
         'you_just_updated_sub_category'=>'لقد قمت للتو بتحديث الفئة الفرعية',
-        'category_just_deleted'=>'الفئة محذوفة للتو'
+        'category_just_deleted'=>'الفئة محذوفة '
         ],
 
     "search"=>[
@@ -61,13 +62,13 @@ return[
     "project"=>[
         'you_just_created_new_project_successfully'=>'لقد قمت للتو بإنشاء مشروع جديد بنجاح',
         'you_just_updated_project_successfully'=>'لقد قمت للتو بتحديث المشروع بنجاح',
-        'project_just_deleted'=>'تم حذف المشروع للتو'
+        'project_just_deleted'=>'تم حذف المشروع '
         ],
 
     "profile"=>[
         'you_made_your_profile'=>'لقد قمت بإنشاء ملف التعريف الخاص بك',
         'you_updated_your_profile'=>'لقد قمت بتحديث ملف التعريف الخاص بك',
-        'profile_just_deleted'=>'الملف الشخصي محذوف للتو'
+        'profile_just_deleted'=>'الملف الشخصي محذوف '
         ],
 
     "chat"=>[
