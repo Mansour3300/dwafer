@@ -29,7 +29,7 @@ class ServiceRequest extends ApiMasterRequest
             'description'=>'required',
             'attachment'=>'file',
             'budget'=>'required',
-            "provider_id"=>'nullable|exists:providers,id'
+            'provider_id'=>'nullable|exists:providers,id'
         ];
     }
 }
