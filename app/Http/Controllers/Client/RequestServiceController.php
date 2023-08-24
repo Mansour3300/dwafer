@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Models\User;
 use App\Models\Service;
+use App\Models\Provider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notifications\ServiceNotification;
 use App\Http\Requests\Client\ServiceRequest;
 use App\Http\Resources\Client\ServiceResource;
 
@@ -29,6 +32,11 @@ class RequestServiceController extends Controller
         $service['attachment']=$request->file('attachment')->store('file','public');
         $service['user_id']=auth('api')->id();
         Service::create($service);
+        if($request->provider_id != null){
+            $user = User::where('id',auth()->id())->first();
+                $provider = Provider::where('id',$request->provider_id)->first();
+                $provider->notify(new ServiceNotification($user));
+        }
         return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.service.new_service_request_added')]);
     }
 
