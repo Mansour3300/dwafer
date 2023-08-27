@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Client\LoginRequest;
+use App\Http\Resources\Client\ClientResource;
 use App\Http\Requests\Client\ResetCodeRequest;
 use App\Http\Requests\Client\ResetPassRequest;
 use App\Http\Requests\Client\ForgotPassRequest;
@@ -17,10 +18,16 @@ class AuthController extends Controller
 {
     public function register(RegisterationRequest $request){
 
-        $newuser= $request->validated();
-        $newuser['otp_code']=rand(0000,9999);
-        User::create($newuser);
-            return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.auth.you_are_now_registered')]);
+        $user= $request->validated();
+        $user['otp_code']=rand(0000,9999);
+        $user_information = User::create($user);
+        $token = auth('api')->attempt([
+            'phone'=>$request->phone,
+            'country_code'=>$request->country_code,
+            'password'=>$request->password
+        ]);
+        $resource = ClientResource::make($user_information);
+        return response()->json(['status'=>'success','data'=>[$resource,'token'=>$token],'message'=>trans('message.auth.you_are_now_registered')]);
 
 }
 /*------------------------------------------------------------------------------------------*/
@@ -29,13 +36,17 @@ class AuthController extends Controller
 
     public function verifyAccount(VerifyAccountRequest $request){
 
-        $otp = $request->validated();
-        $user = User::where('otp_code',$otp);
+        $request->validated();
+        $user = User::where(['otp_code'=>$request->otp_code,
+                             'phone'=>$request->phone,
+                             'country_code'=>$request->country_code])->firstorfail();
         if($user->exists()){
-            $user->update(['activation'=>'active']);
-            return response()->json(['success'=>'true','data'=>null,'message'=>trans('message.auth.your_account_is_now_active')]);
+            $user->update(['activation'=>'active','otp_code'=>rand(0000,9999)]);
+            $resource = ClientResource::make($user);
+            return response()->json(['success'=>'true','data'=>$resource,'message'=>trans('message.auth.your_account_is_now_active')]);
         }else{
-            return response()->json(['success'=>'false','data'=>null,'message'=>trans('message.auth.your_code_is_not_valied')]);
+            // $user->update(['otp_code'=>rand(0000,9999)]);
+            return response()->json(['status'=>'fail','data'=>null,'message'=>trans('message.auth.your_code_is_not_valied')]);
         }
     }
 
@@ -46,9 +57,11 @@ public function login(LoginRequest $request){
 
         $login_data = $request->validated();
         if($token = auth()->guard('api')->attempt($login_data)){
-            return response()->json(['status'=>'success','token'=>$token]);
+            $user = auth()->guard('api')->user();
+            $resource = ClientResource::make($user);
+            return response()->json(['status'=>'success','data'=>[$resource,'token'=>$token],'message'=>'']);
         }else{
-            return response()->json(['status'=>'failed','data'=>null,'message'=>trans('message.auth.access_denied')]);
+            return response()->json(['status'=>'fail','data'=>null,'message'=>trans('message.auth.access_denied')]);
             }
 }
 /*------------------------------------------------------------------------------------------*/
@@ -62,10 +75,12 @@ public function login(LoginRequest $request){
 
     public function forgot(ForgotPassRequest $request){
 
-        $phone = $request->validated();
-        $user = User::where('phone',$phone)->first();
+        $request->validated();
+        $user = User::where(['phone'=>$request->phone,
+                             'country_code'=>$request->country_code])->firstorfail();
         // $user->notify(new ForgotPassOtpNotification());
-        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.auth.an_otp_number_sent_to_your_phone_number')]);
+        $resource = ClientResource::make($user);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>trans('message.auth.an_otp_number_sent_to_your_phone_number')]);
     }
 
     /*----------------------------------------------------------------------------------------*/
@@ -75,11 +90,14 @@ public function login(LoginRequest $request){
 
         $request->validated();
         $user = User::where(['otp_code'=>$request->otp_code,
-                             'phone'=>$request->phone])->first();
+                             'phone'=>$request->phone,
+                             'country_code'=>$request->country_code])->firstorfail();
         if($user->exists()){
-            return response()->json(['success'=>'true','data'=>null,'message'=>trans('message.auth.code_is_valied')]);
+            $resource = ClientResource::make($user);
+            $user->update(['otp_code'=>rand(0000,9999)]);
+            return response()->json(['success'=>'true','data'=>$resource,'message'=>trans('message.auth.code_is_valied')]);
         }else{
-            return response()->json(['success'=>'true','data'=>null,'message'=>trans('message.auth.code_is_not_valied')]);
+            return response()->json(['success'=>'fail','data'=>null,'message'=>trans('message.auth.code_is_not_valied')]);
         }
     }
     /*---------------------------------------------------------------------------------------*/
@@ -88,11 +106,12 @@ public function login(LoginRequest $request){
     public function resetpass(ResetPassRequest $request){
 
         $request->validated();
-        $user = User::where('phone',$request->phone)->first();
-        $user->update([$request->password]);
+        $user = User::where(['phone'=>$request->phone,
+                             'country_code'=>$request->country_code])->firstorfail();
+        $user->update(['password'=>$request->password]);
         $user->tokens()->delete();
-
-        return response()->json(['success'=>'true','data'=>null,'message'=>trans('message.auth.your_passowrd_is_now_changed_successfully')]);
+        $resource = ClientResource::make($user);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>trans('message.auth.your_passowrd_is_now_changed_successfully')]);
     }
 
 }

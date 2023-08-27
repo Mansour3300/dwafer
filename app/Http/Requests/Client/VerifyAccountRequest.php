@@ -23,7 +23,9 @@ class VerifyAccountRequest extends ApiMasterRequest
     public function rules(): array
     {
         return [
-            'otp_code'=>'required|exists:users,otp_code'
+            'otp_code'=>'required|exists:users,otp_code',
+            'phone'=>'required|exists:users,phone',
+            'country_code'=>'required|exists:users,country_code'
         ];
     }
 }
