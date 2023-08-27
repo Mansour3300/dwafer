@@ -26,8 +26,9 @@ class AuthController extends Controller
             'country_code'=>$request->country_code,
             'password'=>$request->password
         ]);
+        data_set($user_information, 'token', $token);//بضيف للمتغير بتاعى كى وفاليو زياده على اللى فيه
         $resource = ClientResource::make($user_information);
-        return response()->json(['status'=>'success','data'=>[$resource,'token'=>$token],'message'=>trans('message.auth.you_are_now_registered')]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>trans('message.auth.you_are_now_registered')]);
 
 }
 /*------------------------------------------------------------------------------------------*/
@@ -58,8 +59,9 @@ public function login(LoginRequest $request){
         $login_data = $request->validated();
         if($token = auth()->guard('api')->attempt($login_data)){
             $user = auth()->guard('api')->user();
+            data_set($user, 'token', $token);
             $resource = ClientResource::make($user);
-            return response()->json(['status'=>'success','data'=>[$resource,'token'=>$token],'message'=>'']);
+            return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
         }else{
             return response()->json(['status'=>'fail','data'=>null,'message'=>trans('message.auth.access_denied')]);
             }
@@ -68,7 +70,7 @@ public function login(LoginRequest $request){
 
     public function logout()
     {
-        auth()->logout();
+        auth('api')->logout();
         return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.auth.you_are_loged_out')]);
     }
 /*------------------------------------------------------------------------------------------*/
