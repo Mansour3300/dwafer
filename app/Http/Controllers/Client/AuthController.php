@@ -40,7 +40,7 @@ class AuthController extends Controller
         $user = User::where(['otp_code'=>$request->otp_code,
                              'phone'=>$request->phone,
                              'country_code'=>$request->country_code])->firstorfail();
-        if($user->exists()){
+        if($user){
             $user->update(['activation'=>'active','otp_code'=>rand(0000,9999)]);//for status we use bool column
             $resource = ClientResource::make($user);
             return response()->json(['success'=>'true','data'=>$resource,'message'=>trans('message.auth.your_account_is_now_active')]);
@@ -92,7 +92,7 @@ public function login(LoginRequest $request){
         $user = User::where(['otp_code'=>$request->otp_code,
                              'phone'=>$request->phone,
                              'country_code'=>$request->country_code])->firstorfail();
-        if($user->exists()){
+        if($user){
             $resource = ClientResource::make($user);
             $user->update(['otp_code'=>rand(0000,9999)]);
             return response()->json(['success'=>'true','data'=>$resource,'message'=>trans('message.auth.code_is_valied')]);

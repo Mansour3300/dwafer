@@ -20,6 +20,7 @@ class ClientResource extends JsonResource
             'phone'=>$this->phone,
             'country code'=>$this->country_code,
             'id'=>$this->id,
+            'status'=>$this->status
         ];
     }
 }
