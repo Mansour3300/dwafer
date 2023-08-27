@@ -41,7 +41,7 @@ class AuthController extends Controller
                              'phone'=>$request->phone,
                              'country_code'=>$request->country_code])->firstorfail();
         if($user->exists()){
-            $user->update(['activation'=>'active','otp_code'=>rand(0000,9999)]);
+            $user->update(['activation'=>'active','otp_code'=>rand(0000,9999)]);//for status we use bool column
             $resource = ClientResource::make($user);
             return response()->json(['success'=>'true','data'=>$resource,'message'=>trans('message.auth.your_account_is_now_active')]);
         }else{
