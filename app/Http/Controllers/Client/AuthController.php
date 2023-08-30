@@ -19,7 +19,7 @@ class AuthController extends Controller
     public function register(RegisterationRequest $request){
 
         $user= $request->validated();
-        $user['otp_code']=rand(0000,9999);
+        $user['otp_code']=rand(1111,9999);
         $user_information = User::create($user);
         $token = auth('api')->attempt([
             'phone'=>$request->phone,
@@ -42,7 +42,7 @@ class AuthController extends Controller
                              'phone'=>$request->phone,
                              'country_code'=>$request->country_code])->firstorfail();
         if($user){
-            $user->update(['activation'=>'active','otp_code'=>rand(0000,9999)]);//for status we use bool column
+            $user->update(['activation'=>'active','otp_code'=>rand(1111,9999)]);//for status we use bool column
             $resource = ClientResource::make($user);
             return response()->json(['success'=>'true','data'=>$resource,'message'=>trans('message.auth.your_account_is_now_active')]);
         }else{
@@ -96,7 +96,7 @@ public function login(LoginRequest $request){
                              'country_code'=>$request->country_code])->firstorfail();
         if($user){
             $resource = ClientResource::make($user);
-            $user->update(['otp_code'=>rand(0000,9999)]);
+            $user->update(['otp_code'=>rand(1111,9999)]);
             return response()->json(['success'=>'true','data'=>$resource,'message'=>trans('message.auth.code_is_valied')]);
         }else{
             return response()->json(['success'=>'fail','data'=>null,'message'=>trans('message.auth.code_is_not_valied')]);
@@ -111,7 +111,7 @@ public function login(LoginRequest $request){
         $user = User::where(['phone'=>$request->phone,
                              'country_code'=>$request->country_code])->firstorfail();
         $user->update(['password'=>$request->password]);
-        $user->tokens()->delete();
+        // $user->tokens()->delete();
         $resource = ClientResource::make($user);
         return response()->json(['status'=>'success','data'=>$resource,'message'=>trans('message.auth.your_passowrd_is_now_changed_successfully')]);
     }

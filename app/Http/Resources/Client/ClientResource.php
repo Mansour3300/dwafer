@@ -16,12 +16,12 @@ class ClientResource extends JsonResource
     {
         // return parent::toArray($request);
         return[
+            'id'=>$this->id,
             'name'=>$this->full_name,
             'phone'=>$this->phone,
             'country code'=>$this->country_code,
-            'id'=>$this->id,
-            // 'status'=>$this->activation,
             'email'=>$this->email,
+             // 'status'=>$this->activation,
             'token' => $this->when($this->token, $this->token)//بيظهر فى حاله وجود قيمه فقط
         ];
     }

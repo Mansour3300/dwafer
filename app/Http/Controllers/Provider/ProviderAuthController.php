@@ -26,7 +26,7 @@ class ProviderAuthController extends Controller
 
             }elseif($request->company_registeration_image!=null){
                 $newuser['company_registeration_image']= $request->file('company_registeration_image')->store('image','public');
-                $newuser['otp_code']=rand(0000,9999);
+                $newuser['otp_code']=rand(1111,9999);
                 Provider::create($newuser);
                 foreach($request->sub_category_ids as $sub_category_id){
                     $provider = Provider::where('phone',$request->phone)->first();
@@ -35,7 +35,7 @@ class ProviderAuthController extends Controller
                 return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.auth.you_are_now_registered_as_a_company')]);
             }
         }elseif($newuser['provider_type']=='free_lancer'){
-                $newuser['otp_code']=rand(0000,9999);
+                $newuser['otp_code']=rand(1111,9999);
                 Provider::create($newuser);
                 foreach($request->sub_category_ids as $sub_category_id){
                     $provider = Provider::where('phone',$request->phone)->first();
@@ -51,9 +51,11 @@ class ProviderAuthController extends Controller
 
     public function verifyAccount(VerifyAccountRequest $request){
 
-        $otp = $request->validated();
-        $user = Provider::where('otp_code',$otp);
-        if($user->exists()){
+        $request->validated();
+        $user = Provider::where(['otp_code'=>$request->otp,
+                                 'country_code'=>$request->country_code,
+                                 'phone'=>$request->phone])->firstorfail();
+        if($user){
             $user->update(['activation'=>'active']);
             return response()->json(['success'=>'true','data'=>null,'message'=>trans('message.auth.your_account_is_now_active')]);
         }else{
@@ -84,8 +86,9 @@ public function login(LoginRequest $request){
 
     public function forgot(ForgotPassRequest $request){
 
-        $phone = $request->validated();
-        $user = Provider::where('phone',$phone)->first();
+        $request->validated();
+        $user = Provider::where(['phone',$request->phone,
+                                 'country_code'=>$request->country_code])->firstorfail();
         // $user->notify(new ForgotPassOtpNotification());
         return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.auth.an_otp_number_sent_to_your_phone_number')]);
     }
@@ -97,8 +100,9 @@ public function login(LoginRequest $request){
 
         $request->validated();
         $user = Provider::where(['otp_code'=>$request->otp_code,
-                             'phone'=>$request->phone])->first();
-        if($user->exists()){
+                             'phone'=>$request->phone,
+                             'country_code'=>$request->country_code])->firstorfail();
+        if($user){
             return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.auth.code_is_valied')]);
         }else{
             return response()->json(['status'=>'fail','data'=>null,'message'=>trans('message.auth.code_is_not_valied')]);
@@ -110,10 +114,10 @@ public function login(LoginRequest $request){
     public function resetpass(ResetPassRequest $request){
 
         $request->validated();
-        $user = Provider::where('phone',$request->phone)->first();
-        $user->update([$request->password]);
-        $user->tokens()->delete();
-
+        $user = Provider::where(['phone'=>$request->phone,
+                                'country_code'=>$request->country_code])->firstorfail();
+        $user->update(['password'=>$request->password]);
+        // $user->tokens()->delete();
         return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.auth.your_passowrd_is_now_changed_successfully')]);
     }
 
