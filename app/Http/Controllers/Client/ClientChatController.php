@@ -24,10 +24,10 @@ class ClientChatController extends Controller
                         ->where('user_id',auth('api')->id())
                         ->join('providers','providers.id','chats.provider_id')
                         ->select('full_name','providers.id')
-                        ->distinct('provider_id')
+                        ->distinct('provider_id')//لعدم تكرار المستخدمين
                         ->get();
                         $resource = AllChatResource::collection($chat);
-        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>''],200);
     }
 
     /**
@@ -43,7 +43,7 @@ class ClientChatController extends Controller
                 $user = User::where('id',auth()->id())->first();
                 $provider = Provider::where('id',$new_message['provider_id'])->first();
                 $provider->notify(new ClientChatNotification($user));
-        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.chat.you_sent_a_new_message')]);
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.chat.you_sent_a_new_message')],200);
     }
 
     /**
@@ -54,7 +54,7 @@ class ClientChatController extends Controller
         $chat = Chat::where('user_id',auth('api')->id())
                       ->where('provider_id',$id)->get();
                       $resource = ChatResource::collection($chat);
-        return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>''],200);
     }
 
     /**
@@ -72,7 +72,7 @@ class ClientChatController extends Controller
     {
         Chat::where('user_id',auth('api')->id())
         ->where('sender','user')
-        ->findorfail($id)->delete();
-        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.chat.you_deleted_this_message')]);
+        ->findorfail($id)->delete();//لو همسح الشات من طرف واحد هعمل عمود delete id واتحقق منه الللى يحذف يضاف اى دى بتاع فى العمود وعند العرض لو الاى دى موجود بعرض فارغ
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.chat.you_deleted_this_message'),200]);
     }
 }

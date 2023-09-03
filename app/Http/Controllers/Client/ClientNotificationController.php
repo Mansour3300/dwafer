@@ -12,6 +12,6 @@ class ClientNotificationController extends Controller
         $user = auth()->user();
         $not = $user->notifications;
         $noty = NotificationResource::collection($not);
-        return response()->json(['status'=>'success','data'=>$noty,'message'=>'']);
+        return response()->json(['status'=>'success','data'=>$noty,'message'=>''],200);
     }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Client\AuthController;
 use App\Http\Controllers\Admin\SliderController;
@@ -197,4 +198,6 @@ Route::group([
     Route::get('project/index',[HomeProjectController::class,'index']);
 
     Route::get('search/{term}',[HomeSearchController::class,'search']);
+
+    Route::get('home',[HomeController::class,'home']);
 });

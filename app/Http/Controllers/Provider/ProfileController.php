@@ -16,7 +16,7 @@ class ProfileController extends Controller
     public function index()
     {
         $profile = Profile::where('provider_id',auth()->guard('developer')->id())
-                      ->first();
+                      ->firstorfail();
         $resource = ProfileResource::make($profile);
         return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
     }
@@ -40,7 +40,7 @@ class ProfileController extends Controller
     public function show(string $id)
     {
         $profile = Profile::where('id',$id)
-                            ->first();
+                            ->firstorfail();
         $resource = ProfileResource::make($profile);
         return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
     }
@@ -51,7 +51,7 @@ class ProfileController extends Controller
     public function update(ProfileRequest $request, string $id)
     {
         $request->validated();
-        $profile = Profile::where('provider_id',auth()->guard('developer')->id())->first();
+        $profile = Profile::where('provider_id',auth()->guard('developer')->id())->firstorfail();
         $profile->update([
             'image'=>$request->file('image')->store('image','public'),
             'bio'=>$request->bio

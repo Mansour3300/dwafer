@@ -28,7 +28,7 @@ class AuthController extends Controller
         ]);
         data_set($user_information, 'token', $token);//بضيف للمتغير بتاعى كى وفاليو زياده على اللى فيه
         $resource = ClientResource::make($user_information);
-        return response()->json(['status'=>'success','data'=>$resource,'message'=>trans('message.auth.you_are_now_registered')]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>trans('message.auth.you_are_now_registered')],200);
 
 }
 /*------------------------------------------------------------------------------------------*/
@@ -44,10 +44,10 @@ class AuthController extends Controller
         if($user){
             $user->update(['activation'=>'active','otp_code'=>rand(1111,9999)]);//for status we use bool column
             $resource = ClientResource::make($user);
-            return response()->json(['success'=>'true','data'=>$resource,'message'=>trans('message.auth.your_account_is_now_active')]);
+            return response()->json(['success'=>'true','data'=>$resource,'message'=>trans('message.auth.your_account_is_now_active')],200);
         }else{
             // $user->update(['otp_code'=>rand(0000,9999)]);
-            return response()->json(['status'=>'fail','data'=>null,'message'=>trans('message.auth.your_code_is_not_valied')]);
+            return response()->json(['status'=>'fail','data'=>null,'message'=>trans('message.auth.your_code_is_not_valied')],422);
         }
     }
 
@@ -63,15 +63,15 @@ public function login(LoginRequest $request){
             $resource = ClientResource::make($user);
             return response()->json(['status'=>'success','data'=>$resource,'message'=>'']);
         }else{
-            return response()->json(['status'=>'fail','data'=>null,'message'=>trans('message.auth.access_denied')]);
+            return response()->json(['status'=>'fail','data'=>null,'message'=>trans('message.auth.access_denied')],403);
             }
 }
 /*------------------------------------------------------------------------------------------*/
 
     public function logout()
     {
-        auth('api')->logout();
-        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.auth.you_are_loged_out')]);
+        auth('api')->logout();  //will be logedout with device token that stored in database
+        return response()->json(['status'=>'success','data'=>null,'message'=>trans('message.auth.you_are_loged_out'),200]);
     }
 /*------------------------------------------------------------------------------------------*/
 
@@ -81,8 +81,10 @@ public function login(LoginRequest $request){
         $user = User::where(['phone'=>$request->phone,
                              'country_code'=>$request->country_code])->firstorfail();
         // $user->notify(new ForgotPassOtpNotification());
+        //here we will generate new otp_code
+        //$user->update(['otp_code'=>mt.rand(1111,9999)]);
         $resource = ClientResource::make($user);
-        return response()->json(['status'=>'success','data'=>$resource,'message'=>trans('message.auth.an_otp_number_sent_to_your_phone_number')]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>trans('message.auth.an_otp_number_sent_to_your_phone_number'),200]);
     }
 
     /*----------------------------------------------------------------------------------------*/
@@ -97,9 +99,9 @@ public function login(LoginRequest $request){
         if($user){
             $resource = ClientResource::make($user);
             $user->update(['otp_code'=>rand(1111,9999)]);
-            return response()->json(['success'=>'true','data'=>$resource,'message'=>trans('message.auth.code_is_valied')]);
+            return response()->json(['success'=>'true','data'=>$resource,'message'=>trans('message.auth.code_is_valied')],200);
         }else{
-            return response()->json(['success'=>'fail','data'=>null,'message'=>trans('message.auth.code_is_not_valied')]);
+            return response()->json(['success'=>'fail','data'=>null,'message'=>trans('message.auth.code_is_not_valied')],422);
         }
     }
     /*---------------------------------------------------------------------------------------*/
@@ -113,7 +115,7 @@ public function login(LoginRequest $request){
         $user->update(['password'=>$request->password]);
         // $user->tokens()->delete();
         $resource = ClientResource::make($user);
-        return response()->json(['status'=>'success','data'=>$resource,'message'=>trans('message.auth.your_passowrd_is_now_changed_successfully')]);
+        return response()->json(['status'=>'success','data'=>$resource,'message'=>trans('message.auth.your_passowrd_is_now_changed_successfully')],200);
     }
 
 }
